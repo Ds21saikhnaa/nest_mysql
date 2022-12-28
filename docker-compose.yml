@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql/mysql-server:latest
+    volumes:
+      - my-db:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_DATABASE: ikon
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    expose:
+      - '3306'
+
+  api:
+    image: sample-nest-app
+    build: .
+    links:
+      - mysql
+    ports:
+      - "3000:3000"
+
+  redis:
+    image: 'bitnami/redis:latest'
+    restart: always
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+    volumes:
+      - cache:/data
+
+volumes:
+  my-db:
+  cache:
+    driver: local

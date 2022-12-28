@@ -1,0 +1,15 @@
+POST http://localhost:3000/qwert HTTP/1.1 Content-Type: application/json
+
+{
+"title": "new title", "body": "new body"
+}
+
+### send put PUT http://localhost:3000/qwert/3 HTTP/1.1 Content-Type: application/json
+
+{
+"title": "newee title", "body": "newee body"
+}
+
+### delete content
+
+DELETE http://localhost:3000/qwert/3 HTTP/1.1 Content-Type: application/json
